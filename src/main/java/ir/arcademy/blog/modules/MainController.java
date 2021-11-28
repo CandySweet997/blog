@@ -17,14 +17,19 @@ public class MainController {
         this.postsService = postsService;
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
-    @RequestMapping("")
+    @RequestMapping(value = {"", "/index"})
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllPosts());
         return "index";
     }
 
+    @RequestMapping(value = "/login" , method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/403" , method = RequestMethod.GET)
+    public String accessDenied() {
+        return "403";
+    }
 }

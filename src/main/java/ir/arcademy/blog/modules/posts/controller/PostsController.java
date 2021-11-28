@@ -21,7 +21,7 @@ public class PostsController {
         this.postsService = postsService;
     }
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String registerPosts (@ModelAttribute Posts post ) throws IOException{
 
         postsService.registerPost(post);
