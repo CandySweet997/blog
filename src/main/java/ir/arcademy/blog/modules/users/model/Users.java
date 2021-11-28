@@ -19,6 +19,7 @@ public class Users {
     @GeneratedValue
     private Long id;
 
+    private boolean enabled = true;
     @Column(unique = true)
     private String email;
     private String password;
