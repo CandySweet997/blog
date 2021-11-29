@@ -35,9 +35,8 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String registerCategory(@ModelAttribute Category category){
+    public String register(@ModelAttribute Category category){
         categoryService.registerCategory(category);
-        System.out.println("saved");
         return "redirect:/categories";
     }
 
@@ -54,15 +53,15 @@ public class CategoryController {
     }
 
 
-//    @RequestMapping(value ="/rest", method = RequestMethod.GET)
-//    public @ResponseBody List<Category> getCategories() {
-//        return categoryService.findAllCategories();
-//    }
+    @RequestMapping(value ="/rest", method = RequestMethod.GET)
+    public @ResponseBody List<Category> getCategories() {
+        return categoryService.findAllCategories();
+    }
 
-//    @RequestMapping(value ="/rest", method = RequestMethod.POST)
-//    public @ResponseBody Category registerCategory(@RequestBody Category category) {
-//        return categoryService.registerCategory(category);
-//    }
+    @RequestMapping(value ="/rest", method = RequestMethod.POST)
+    public @ResponseBody Category registerCategory(@RequestBody Category category) {
+        return categoryService.registerCategory(category);
+    }
 
 
 }
