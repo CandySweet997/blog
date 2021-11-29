@@ -4,8 +4,10 @@ import ir.arcademy.blog.modules.posts.model.Category;
 import ir.arcademy.blog.modules.posts.model.Posts;
 import ir.arcademy.blog.modules.posts.service.CategoryService;
 import ir.arcademy.blog.modules.posts.service.PostsService;
+import org.hibernate.annotations.AttributeAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,18 +24,45 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public String Categories(){
+    public String Categories(Model model){
+        model.addAttribute("categories",categoryService.findAllCategories());
         return "categories/categories";
     }
-    @RequestMapping(value ="/rest", method = RequestMethod.GET)
-    public @ResponseBody List<Category> getCategories() {
-        return categoryService.findAllCategories();
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerPage(Model model) {
+        model.addAttribute("category", new Category());
+        return "categories/registerCategories";
     }
 
-    @RequestMapping(value ="/rest", method = RequestMethod.POST)
-    public @ResponseBody Category registerCategory(@RequestBody Category category) {
-        return categoryService.registerCategory(category);
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public String registerCategory(@ModelAttribute Category category){
+        categoryService.registerCategory(category);
+        System.out.println("saved");
+        return "redirect:/categories";
     }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editPage(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("category",categoryService.findById(id));
+        return "categories/registerCategories";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deletePage(@PathVariable("id") Long id) {
+        categoryService.deleteById(id);
+        return "redirect:/categories";
+    }
+
+
+//    @RequestMapping(value ="/rest", method = RequestMethod.GET)
+//    public @ResponseBody List<Category> getCategories() {
+//        return categoryService.findAllCategories();
+//    }
+
+//    @RequestMapping(value ="/rest", method = RequestMethod.POST)
+//    public @ResponseBody Category registerCategory(@RequestBody Category category) {
+//        return categoryService.registerCategory(category);
+//    }
 
 
 }
