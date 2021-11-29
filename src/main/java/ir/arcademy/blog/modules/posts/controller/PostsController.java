@@ -29,8 +29,8 @@ public class PostsController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public @ResponseBody String showRegisterPosts() {
-        return "posts/registerPosts";
+    public  String showRegisterPosts() {
+        return "posts/posts";
     }
 
 

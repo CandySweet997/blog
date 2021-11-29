@@ -24,6 +24,11 @@ public class UsersController {
         return "users/users";
     }
 
+    @RequestMapping(value ="/register",method = RequestMethod.GET)
+    public String registerUser(){
+        return "users/registerUser";
+    }
+
     @RequestMapping(value = "/rest", method = RequestMethod.GET)
     public @ResponseBody
     List<Users> getUsers() {

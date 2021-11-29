@@ -5,14 +5,12 @@ import ir.arcademy.blog.modules.posts.model.Posts;
 import ir.arcademy.blog.modules.posts.service.CategoryService;
 import ir.arcademy.blog.modules.posts.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/categories")
 public class CategoryController {
 
@@ -23,13 +21,17 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = {"/",""}, method = RequestMethod.GET)
-    public List<Category> getCategories() {
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    public String Categories(){
+        return "categories/categories";
+    }
+    @RequestMapping(value ="/rest", method = RequestMethod.GET)
+    public @ResponseBody List<Category> getCategories() {
         return categoryService.findAllCategories();
     }
 
-    @RequestMapping(value = {"/",""}, method = RequestMethod.POST)
-    public Category registerCategory(@RequestBody Category category) {
+    @RequestMapping(value ="/rest", method = RequestMethod.POST)
+    public @ResponseBody Category registerCategory(@RequestBody Category category) {
         return categoryService.registerCategory(category);
     }
 
